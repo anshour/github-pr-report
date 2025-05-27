@@ -2,14 +2,8 @@ export const CONFIG = {
   GITHUB_TOKEN: process.env.GITHUB_TOKEN,
   START_DATE: process.env.START_DATE || "",
   END_DATE: process.env.END_DATE || "",
-  AUTHORS: [
-    "anshour",
-    "ihsanfikri12",
-    "nadiannisaqilah",
-    "nandi-ir",
-    "Syifatf",
-  ],
-  ORGANIZATION: "atInisiatifZakat",
+  AUTHORS: process.env.GITHUB_AUTHORS?.split(",") || [],
+  ORGANIZATION: process.env.GITHUB_ORGANIZATION || "",
   EXCLUDED_FILES: [
     // Lock files
     "package-lock.json",

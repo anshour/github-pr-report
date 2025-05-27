@@ -20,17 +20,20 @@ A cli app built with Bun that generates comprehensive Excel reports for GitHub P
 ## Installation
 
 1. Clone this repository:
+
 ```bash
 git clone <repository-url>
 cd github-pr-report
 ```
 
 2. Install dependencies:
+
 ```bash
 bun install
 ```
 
 3. Create a `.env` file in the root directory:
+
 ```env
 GITHUB_TOKEN=your_github_token_here
 START_DATE=2025-05-01
@@ -41,35 +44,20 @@ END_DATE=2025-05-31
 
 ### Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `GITHUB_TOKEN` | GitHub Personal Access Token | `ghp_xxxxxxxxxxxx` |
-| `START_DATE` | Report start date (YYYY-MM-DD) | `2025-05-01` |
-| `END_DATE` | Report end date (YYYY-MM-DD) | `2025-05-31` |
+| Variable              | Description                                                       | Example             |
+| --------------------- | ----------------------------------------------------------------- | ------------------- |
+| `GITHUB_TOKEN`        | GitHub Personal Access Token                                      | `ghp_xxxxxxxxxxxx`  |
+| `START_DATE`          | Report start date (YYYY-MM-DD)                                    | `2025-05-01`        |
+| `END_DATE`            | Report end date (YYYY-MM-DD)                                      | `2025-05-31`        |
+| `GITHUB_AUTHORS`      | Comma-separated list of GitHub usernames to include in the report | `user1,user2,user3` |
+| `GITHUB_ORGANIZATION` | GitHub organization name                                          | `my-org`            |
 
 ### Application Configuration
 
 Edit [`src/config.ts`](src/config.ts) to customize:
 
-- **AUTHORS**: List of GitHub usernames to track
-- **ORGANIZATION**: Target GitHub organization
 - **EXCLUDED_FILES**: File patterns to exclude from statistics
 - **OUTPUT_DIR**: Directory for generated Excel files
-
-Example configuration:
-```typescript
-export const CONFIG = {
-  AUTHORS: [
-    "anshour",
-    "ihsanfikri12",
-    "nadiannisaqilah",
-    "nandi-ir",
-    "Syifatf",
-  ],
-  ORGANIZATION: "atInisiatifZakat",
-  // ... other settings
-};
-```
 
 ## Usage
 
@@ -80,6 +68,7 @@ bun run start
 ```
 
 The application will:
+
 1. Fetch PRs from GitHub for all configured authors
 2. Gather detailed information including code changes
 3. Generate an Excel file in the `output/` directory
@@ -89,7 +78,9 @@ The application will:
 The generated Excel file contains two worksheets:
 
 ### 1. Pull Requests
+
 Detailed list of all PRs with:
+
 - Project name
 - PR title and description
 - Author information
@@ -98,7 +89,9 @@ Detailed list of all PRs with:
 - PR URL
 
 ### 2. Summary
+
 Comprehensive statistics including:
+
 - Report period information
 - Overall PR statistics
 - Per-author breakdown
@@ -128,12 +121,14 @@ src/
 - **Type Definitions** ([`src/types/index.ts`](src/types/index.ts)): Defines interfaces like [`PullRequestInfo`](src/types/index.ts) and [`AuthorStats`](src/types/index.ts)
 
 ### Excluded PRs
+
 - PRs that are neither open nor merged
 - Branch sync PRs (develop ↔ master, main ↔ deploy-to-main, etc.)
 
 ## Output Files
 
 Generated Excel files are saved to the `output/` directory with timestamps:
+
 ```
 output/github_prs_2025-05-15T10-30-45-123Z.xlsx
 ```
@@ -141,6 +136,7 @@ output/github_prs_2025-05-15T10-30-45-123Z.xlsx
 ## Error Handling
 
 The application includes comprehensive error handling for:
+
 - GitHub API rate limits and errors
 - Network connectivity issues
 - Invalid PR data
