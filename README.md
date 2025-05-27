@@ -1,6 +1,6 @@
 # GitHub PR Report Generator
 
-A TypeScript application built with Bun that generates comprehensive Excel reports for GitHub Pull Requests within a specified organization and date range.
+A cli app built with Bun that generates comprehensive Excel reports for GitHub Pull Requests within a specified organization and date range.
 
 ## Features
 
