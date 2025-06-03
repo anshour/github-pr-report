@@ -167,25 +167,30 @@ async function fetchPRFiles(
   let allFiles: FileChange[] = [];
 
   while (true) {
-    const options: https.RequestOptions = {
-      hostname: "api.github.com",
-      path: `/repos/${owner}/${repo}/pulls/${prNumber}/files?per_page=100&page=${page}`,
-      method: "GET",
-      headers: getGitHubHeaders(),
-    };
+    try {
+      const options: https.RequestOptions = {
+        hostname: "api.github.com",
+        path: `/repos/${owner}/${repo}/pulls/${prNumber}/files?per_page=100&page=${page}`,
+        method: "GET",
+        headers: getGitHubHeaders(),
+      };
 
-    const data = await makeHttpRequest(options);
-    const files = JSON.parse(data);
+      const data = await makeHttpRequest(options);
+      const files = JSON.parse(data);
 
-    if (!Array.isArray(files)) {
-      console.error(`❌ Invalid file response for PR #${prNumber}`);
+      if (!Array.isArray(files)) {
+        console.error(`❌ Invalid file response for PR #${prNumber}`);
+        break;
+      }
+
+      allFiles = allFiles.concat(files);
+      if (files.length < 100) break; // No more pages
+
+      page++;
+    } catch (error) {
+      console.error(`❌ Error fetching files (page ${page}) for PR #${prNumber}:`, error);
       break;
     }
-
-    allFiles = allFiles.concat(files);
-    if (files.length < 100) break; // No more pages
-
-    page++;
   }
 
   return allFiles;
