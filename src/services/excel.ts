@@ -67,6 +67,7 @@ function createPRsWorksheet(
     { header: "Baris Ditambahkan", key: "additions", width: 20 },
     { header: "Baris Dihapus", key: "deletions", width: 20 },
     { header: "Total Perubahan", key: "total", width: 20 },
+    { header: "Tanggal Buat", key: "created_at", width: 20 },
     { header: "Tanggal Merge", key: "closed_at", width: 20 },
   ];
 
@@ -85,6 +86,7 @@ function createPRsWorksheet(
       additions: pr.additions || 0,
       deletions: pr.deletions || 0,
       total: totalChanges || "N/A",
+      created_at: pr.created_at,
       closed_at: pr.closed_at,
     });
   });
@@ -192,8 +194,13 @@ function addAuthorStatistics(
   // Calculate author stats
   const authorStats = calculateAuthorStats(prs);
 
+  // Sort authors by total changes (descending)
+  const sortedAuthorStats = authorStats.sort(
+    (a, b) => b.authorChanges - a.authorChanges
+  );
+
   // Add author data
-  authorStats.forEach((stat) => {
+  sortedAuthorStats.forEach((stat) => {
     const rowNum = worksheet.rowCount + 1;
     worksheet.addRow({
       metric: stat.author,
