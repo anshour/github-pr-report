@@ -43,6 +43,7 @@ async function fetchAuthorPRs(author: string): Promise<PullRequestInfo[]> {
     if (result.items && Array.isArray(result.items)) {
       return result.items.map((pr: any) => ({
         number: pr.number,
+        created_at: formatDate(pr.created_at),
         closed_at: formatDate(pr.closed_at),
         title: pr.title,
         user: { login: pr.user.login },

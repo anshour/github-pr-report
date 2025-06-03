@@ -7,6 +7,7 @@ export interface PullRequestInfo {
   html_url: string;
   additions?: number;
   deletions?: number;
+  created_at: string;
   closed_at: string;
   base?: string;
   head?: string;
