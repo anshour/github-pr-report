@@ -259,7 +259,7 @@ function addTopReposByChanges(
   worksheet: ExcelJS.Worksheet,
   prs: PullRequestInfo[]
 ): void {
-  addSectionHeader(worksheet, "Top 5 Repo Berdasarkan Jumlah Perubahan");
+  addSectionHeader(worksheet, "Top 30 Repo Berdasarkan Jumlah Perubahan");
 
   // Add table header
   const headerRow = worksheet.addRow({
@@ -269,7 +269,7 @@ function addTopReposByChanges(
   headerRow.font = { bold: true };
 
   // Get top 5 repos by changes
-  const top5Repos = getTopReposByChanges(prs, 5);
+  const top5Repos = getTopReposByChanges(prs, 30);
 
   // Add repo data
   top5Repos.forEach((repoStat) => {
